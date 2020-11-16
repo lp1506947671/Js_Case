@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        .box {
+            width: 200px;
+            height: 200px;
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            //获取事件源,需要的标签
+            let flower = document.getElementById("beautiful");
+            let nextBtn = document.getElementById("next");
+            let prevBtn = document.getElementById("prev");
+
+            // 设置图片的索引值和
+            let minIndex = 1, maxIndex = 4, currentIndex = minIndex;
+            //  监听按钮的点击
+            //下一张
+            nextBtn.onclick = function () {
+                if (currentIndex === maxIndex) {
+                    currentIndex = minIndex;
+                } else {
+                     currentIndex++;
+                }
+                flower.setAttribute("src", `images/image0${currentIndex}.jpg`);
+            };
+            //上一张
+            prevBtn.onclick = function () {
+                if (currentIndex === minIndex) {
+                    currentIndex = maxIndex;
+                } else {
+                    currentIndex--;
+                }
+                 flower.setAttribute("src", `images/image0${currentIndex}.jpg`);
+            }
+
+
+        }
+
+
+    </script>
+</head>
+<body>
+<!--html-->
+<img src="images/image01.jpg" id="beautiful" class="box" alt="flower"><br>
+<button id="prev">上一张</button>
+<button id="next">下一张</button>
+</body>
+</html>
