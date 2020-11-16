@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript">
+        window.onload = function () {
+            // 1.获取事件源
+            let obtn = document.getElementById('btn');
+            let newImg = document.getElementById('new');
+            // 2.绑定事件
+            obtn.onclick = function () {
+                // 3.事件驱动程序
+                if (obtn.innerHTML === "隐藏") {
+                    newImg.style.display = 'none';
+                    obtn.innerHTML = "显示";
+
+                } else if (obtn.innerHTML === "显示") {
+                    newImg.style.display = 'block';
+                    obtn.innerHTML = "隐藏";
+                }
+
+            }
+
+        }
+    </script>
+</head>
+<body>
+<button id="btn">隐藏</button>
+<br>
+<img src="images/img01.jpg" id="new" alt="girl">
+
+</body>
+</html>
