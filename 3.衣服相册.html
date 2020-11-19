@@ -4,64 +4,99 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <style type="text/css">
-        *{
+        * {
             padding: 0;
             margin: 0;
-            overflow: hidden;
         }
-        ul{
+
+        ul {
             list-style: none;
             overflow: hidden;
         }
-        ul li{
+
+        ul li {
             float: left;
             border: 2px solid #ffffff;
             margin-left: 10px;
-			margin-top: 20px;
+            margin-top: 20px;
 
         }
-        ul li.active{
+
+        ul li.active {
             border-color: red;
         }
-        ul li a .smallImg{
+
+        ul li a .smallImg {
             width: 50px;
             height: 50px;
         }
     </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            // 1.获取事件
+            let smallImage = document.getElementsByClassName("smallImg");
+            let bigImage = document.getElementById("bigImg");
+            // 2.遍历集合,给每个img添加事件
+            for (let i = 0; i < smallImage.length; i++) {
+                //事件的处理程序
+                smallImage[i].onmouseover = function () {
+                    // 在悬浮到每个li标签之前,先把所有的li标签的类名都置为空值
+                    for (let j = 0; j < smallImage.length; j++) {
+                        smallImage[j].parentNode.parentNode.setAttribute('class', '');
+                    }
+                    //修改大图的src属性值
+                    let smallImageSrc = this.getAttribute('src');
+                    bigImage.setAttribute('src', smallImageSrc);
+                    //给鼠标悬浮的img标签的父标签类
+                    smallImage[i].parentNode.parentNode.setAttribute('class','active')
+
+
+                }
+
+
+            }
+
+            // 3.事件的处理程序
+            //3.1 在悬浮到每个li标签之前,先把所有的li标签的类名都置为空值
+            // 3.2修改大图的src属性值
+            // 3.3给鼠标悬浮的img标签的父标签类
+        }
+    </script>
 </head>
 <body>
-    <img src="images/1.jpg" id="bigImg">
-    <ul>
-        <li class="active">
-            <a href="">
-                <img src="images/1.jpg" class="smallImg">
-            </a>
-        </li>
-        <li class="">
-            <a href="">
-                <img src="images/2.jpg" class="smallImg">
-            </a>
-        </li>
-        <li class="">
-            <a href="">
-                <img src="images/1.jpg" class="smallImg">
-            </a>
-        </li>
-        <li class="">
-            <a href="">
-                <img src="images/3.jpg" class="smallImg">
-            </a>
-        </li>
-        <li class="">
-            <a href="">
-                <img src="images/4.jpg" class="smallImg">
-            </a>
-        </li>
-        <li class="">
-            <a href="">
-                <img src="images/5.jpg" class="smallImg">
-            </a>
-        </li>
-    </ul>
+<img src="images/1.jpg" id="bigImg">
+<ul>
+    <li class="active">
+        <a href="">
+            <img src="images/1.jpg" class="smallImg">
+        </a>
+    </li>
+    <li class="">
+        <a href="">
+            <img src="images/2.jpg" class="smallImg">
+        </a>
+    </li>
+    <li class="">
+        <a href="">
+            <img src="images/1.jpg" class="smallImg">
+        </a>
+    </li>
+    <li class="">
+        <a href="">
+            <img src="images/3.jpg" class="smallImg">
+        </a>
+    </li>
+    <li class="">
+        <a href="">
+            <img src="images/4.jpg" class="smallImg">
+        </a>
+    </li>
+    <li class="">
+        <a href="">
+            <img src="images/5.jpg" class="smallImg">
+        </a>
+    </li>
+</ul>
 </body>
+
 </html>
