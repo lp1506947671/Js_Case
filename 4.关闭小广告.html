@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+   <style type="text/css">
+       *{
+           padding: 0;
+           margin: 0;
+       }
+       #qe_code{
+           width: 180px;
+           height: 160px;
+           position: relative;
+       }
+       #code{
+           height: 160px;
+           width: 160px;
+           position: absolute;
+           right: 0;
+       }
+       #close{
+           position: absolute;
+           height: 18px;
+           width: 18px;
+           line-height: 18px;
+           text-align: center;
+           border: 1px solid #ffffff;
+           color: #666;
+           right: 0;
+       }
+
+   </style>
+
+    <script type="text/javascript">
+        window.onload=function () {
+        //获取标签
+            let closeBtn=document.getElementById("close");
+            // let imgTao=document.getElementById("qe_code");
+            closeBtn.onclick=function () {
+                // this.parentNode.style.display = 'none';
+                this.parentNode.setAttribute("style","display:none")
+            }
+        }
+    </script>
+</head>
+<body>
+<div id="qe_code">
+    <img src="images/phone_taobao.png" id="code" alt="taobaotwo">
+    <span id="close">X</span>
+</div>
+</body>
+</html>
