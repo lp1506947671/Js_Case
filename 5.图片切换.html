@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        #box {
+            border: 1px solid #ccc;
+            width: 430px;
+            height: 70px;
+            padding-top: 430px;
+            background: url("images/big_pic1.jpg") no-repeat;
+        }
+
+        #box ul li {
+            float: left;
+            margin-right: 20px;
+
+        }
+
+        .clearfix::after {
+            content: '';
+            display: block;
+            clear: both;
+
+        }
+    </style>
+
+    <script type="text/javascript">
+        window.onload = function () {
+            // 1.获取事件原
+            function $(id) {
+                return typeof id === "string" ? document.getElementById(id) : null;
+            }
+
+            // 2.添加动作
+            function changeBgcImg(liId, imgSrc) {
+                //添加事件
+                $(liId).onmousemove = function () {
+                    this.parentNode.parentNode.setAttribute("style", `background:${imgSrc}`);
+                }
+            }
+
+            //调用函数
+            changeBgcImg('item1', "url('images/big_pic1.jpg') no-repeat");
+            changeBgcImg('item2', "url('images/big_pic2.jpg') no-repeat");
+            changeBgcImg('item3', "url('images/big_pic3.jpg') no-repeat");
+            changeBgcImg('item4', "url('images/big_pic4.jpg') no-repeat");
+            changeBgcImg('item5', "url('images/big_pic5.jpg') no-repeat");
+            //1.this的使用
+            //2.setAttribute("style",`background:${imgSrc}`)
+
+        }
+    </script>
+</head>
+<body>
+<div id="box">
+    <ul class="clearfix">
+        <li id="item1"><img src="images/pic1.jpg"></li>
+        <li id="item2"><img src="images/pic2.jpg"></li>
+        <li id="item3"><img src="images/pic3.jpg"></li>
+        <li id="item4"><img src="images/pic4.jpg"></li>
+        <li id="item5"><img src="images/pic5.jpg"></li>
+    </ul>
+</div>
+
+</body>
+</html>
