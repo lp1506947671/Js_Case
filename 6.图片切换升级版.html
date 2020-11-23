@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>图片切换升级版</title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        #box {
+            border: 1px solid #ccc;
+            width: 430px;
+            height: 70px;
+            padding-top: 430px;
+            background: url("images/big_pic1.jpg") no-repeat;
+        }
+
+        #box ul li {
+            float: left;
+            margin-right: 20px;
+
+        }
+
+        .clearfix::after {
+            content: '';
+            display: block;
+            clear: both;
+
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            // 1.获取事件原
+            function $(id) {
+                return typeof id === "string" ? document.getElementById(id) : null;
+            }
+
+            let items = document.getElementsByClassName('item');
+            for (let i=0; i < items.length; i++) {
+                items[i].onmouseover = function () {
+                    $("box").style.background= `url('images/big_pic${i+1}.jpg') no-repeat`
+                    console.log(i)
+                }
+            }
+
+        }
+    </script>
+</head>
+<body>
+
+</body>
+<div id="box">
+    <ul class="clearfix">
+        <li class="item"><img src="images/pic1.jpg"></li>
+        <li class="item"><img src="images/pic2.jpg"></li>
+        <li class="item"><img src="images/pic3.jpg"></li>
+        <li class="item"><img src="images/pic4.jpg"></li>
+        <li class="item"><img src="images/pic5.jpg"></li>
+    </ul>
+</div>
+</html>
