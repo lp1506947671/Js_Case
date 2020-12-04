@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>千千音乐盒</title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .panel {
+            width: 400px;
+            padding: 20px;
+            border: 1px solid black;
+            background-color: #fff;
+            margin: 100px auto;
+            border-radius: 4px;
+
+        }
+
+        .panel-footer {
+            text-align: center;
+            margin: 10px auto;
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+
+            function $(id) {
+                return typeof id === "string" ? document.getElementById(id) : null;
+            }
+
+            // 1.获取所有复选框
+            let inputs = document.getElementsByTagName("input");
+            // 2.全选
+            $("allSelect").onclick = function () {
+                for (let i = 0; i < inputs.length; i++) {
+                    inputs[i].checked = true;
+                }
+            };
+            //3.取消全选
+            $("cancelSelect").onclick = function () {
+                for (let i = 0; i < inputs.length; i++) {
+                    inputs[i].checked = false;
+                }
+            };
+            //4.反选
+            $("reverseSelect").onclick = function () {
+                for (let i = 0; i < inputs.length; i++) {
+                    inputs[i].checked = !inputs[i].checked;
+                }
+            };
+        }
+    </script>
+
+</head>
+<body>
+<div class="panel">
+    <div class="panel-title">
+        <h3>千千音乐盒</h3>
+    </div>
+    <div class="panel-content">
+        <hr>
+        <input type="checkbox">漂洋过海来看你<br>
+        <input type="checkbox">一眼万年<br>
+        <input type="checkbox">后来<br>
+        <input type="checkbox">没那么简单<br>
+        <input type="checkbox">如果你要离去<br>
+        <input type="checkbox">恋恋风尘<br>
+        <input type="checkbox">南山南<br>
+        <input type="checkbox">涛声依旧<br>
+        <input type="checkbox">可惜不是你<br>
+        <hr>
+    </div>
+    <div class="panel-footer">
+        <button id="allSelect">全选</button>
+        <button id="cancelSelect">取消全选</button>
+        <button id="reverseSelect">反选</button>
+
+    </div>
+</div>
+</body>
+</html>
