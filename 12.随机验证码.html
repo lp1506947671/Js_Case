@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>随机验证码</title>
+    <style type="text/css">
+        #code {
+            width: 100px;
+            height: 100px;
+            line-height: 100px;
+            text-align: center;
+            background: #ddd;
+            font-size: 20px;
+            color: red;
+            font-weight: bold;
+            padding: 10px;
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            function random(max, min) {
+                return Math.floor(Math.random() * (max - min) + min);
+            }
+
+            function creatCode() {
+                // 设置默认的空的字符串
+                let code = '';
+                // 设置长度
+                let codeLength = 4;
+                let randomCode = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+                for (let i = 0; i < codeLength; i++) {
+                    // 设置随机范围 0~36
+                    let index = random(0, 36);
+                    code += randomCode[index];
+                }
+                return code;
+            }
+
+            let codeDiv = document.getElementById("code");
+            let newCodeInput = document.getElementById("newCode");
+            let validate = document.getElementById("validate");
+            let code = creatCode();
+            codeDiv.innerHTML = code;
+            //验证按钮校验
+            validate.onclick = function () {
+                let newCode = newCodeInput.value.toUpperCase();
+                if (newCode === code) {
+                    window.location.href = 'https://www.baidu.com'
+                } else {
+                    //验证失败
+                    alert("验证码不正确,请重新输入");
+                    //输入框置空
+                    newCodeInput.value='';
+                    code=creatCode();
+                    codeDiv.innerHTML = code;
+
+                }
+            }
+
+        }
+    </script>
+</head>
+<body>
+<div id="code"></div>
+<input type="text" name="" id="newCode">
+<input type="button" name="" id="validate" value="验证">
+</body>
+</html>
