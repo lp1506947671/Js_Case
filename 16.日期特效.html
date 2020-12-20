@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>日期特效</title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        #date {
+            width: 450px;
+            height: 300px;
+            background-color: darkorange;
+            border-radius: 10px;
+            margin: 100px auto;
+        }
+
+        #nowDate {
+            width: 450px;
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+            color: #fff;
+            font-size: 26px;
+        }
+
+        #day {
+            width: 200px;
+            height: 200px;
+            line-height: 200px;
+            background-color: orchid;
+            margin: 0 auto;
+            text-align: center;
+            color: #fff;
+            font-weight: bold;
+            font-size: 60px;
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            let nowDate = document.getElementById("nowDate");
+            let day = document.getElementById('day');
+
+            function nowNumTime() {
+                let now = new Date();
+
+                let year = now.getFullYear();
+                let month = now.getMonth();
+                let day = now.getDate();
+                let week = now.getDay();
+
+                let hour = now.getHours();
+                let minute = now.getMinutes();
+                let second = now.getSeconds();
+
+                let weeks = ['星期天', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+
+                let temp = '' + (hour > 12 ? hour - 12 : hour);
+                if (hour === 0) {
+                    temp = "12"
+                }
+                temp = temp + (minute < 10 ? ":0" : ":") + minute;
+                temp = temp + (second < 10 ? ":0" : ":") + second;
+                temp = temp + (hour >= 12 ? " P.M." : "A.M.");
+                temp = `${year}年${month}月${day}日 ${temp} ${weeks[week]}`;
+                nowDate.innerHTML = temp;
+
+            }
+
+            setInterval(nowNumTime, 10)
+        }
+    </script>
+</head>
+<body>
+<div id="date">
+    <p id="nowDate">
+
+    </p>
+    <p id="day">
+
+    </p>
+</div>
+</body>
+</html>
