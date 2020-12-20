@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>定时器回顾</title>
+</head>
+<body>
+<script type="text/javascript">
+    window.onload = function () {
+        //获取标签
+        let sta = document.getElementById("start");
+        let sto = document.getElementById("stop");
+        let num = 0, timer = null;
+        sta.onclick = function () {
+            clearInterval(timer);
+            timer = setInterval(function () {
+                num++;
+                console.log(num)
+            }, 1000)
+        };
+        sto.onclick=function () {
+            clearInterval(timer)
+        }
+    }
+</script>
+<button id="start">开启</button>
+<button id="stop">关闭</button>
+
+
+</body>
+</html>
