@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数字化时钟</title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        #clock {
+            width: 600px;
+            height: 600px;
+            background: url("images/clock.jpg") no-repeat;
+            position: relative;
+        }
+
+        #hour, #minute, #second {
+            position: absolute;
+            width: 30px;
+            height: 600px;
+            left: 50%;
+            top: 0;
+            margin-left: -15px;
+        }
+
+        #hour {
+            background: url("images/hour.png") no-repeat center center;
+        }
+
+        #minute {
+            background: url("images/minute.png") no-repeat center center;
+        }
+
+        #second {
+            background: url("images/second.png") no-repeat center center;
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+
+            let hour = document.getElementById("hour");
+            let minute = document.getElementById("minute");
+            let second = document.getElementById("second");
+
+            setInterval(function () {
+                //获取当前时间
+                let now = new Date();
+                let s = now.getSeconds();
+                let m = now.getMinutes() + s / 60;
+                let h = now.getHours() % 12 ;
+                //旋转
+                second.style.transform = `rotate(${s * 6}deg)`;
+                minute.style.transform = `rotate(${m * 6}deg)`;
+                hour.style.transform = `rotate(${h * 30+ m / 2}deg)`;
+            }, 10)
+
+
+        }
+    </script>
+</head>
+<body>
+<div id="clock">
+    <div id="hour"></div>
+    <div id="minute"></div>
+    <div id="second"></div>
+</div>
+</body>
+</html>
