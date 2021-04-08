@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>天气</title>
+    <!-- 新 Bootstrap4 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- bootstrap.bundle.min.js 用于弹窗、提示、下拉菜单，包含了 popper.min.js -->
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+
+    <!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="http://cdn.staticfile.org/moment.js/2.24.0/moment.min.js"></script>
+</head>
+<style type="text/css">
+    .nav-item_cus {
+        width: 40px;
+        height: 40px;
+    }
+
+    .navbar-nav img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .weatherContent ul {
+        float: left;
+        list-style: none;
+    }
+
+    .weatherContent {
+        height: 500px;
+        width: 500px;
+    }
+
+    .weatherContent ul {
+        padding-left: 10px;
+    }
+
+    .weatherContent ul li {
+        float: left;
+        width: 150px;
+        height: 300px;
+        border: 1px solid blue;
+        text-align: center;
+
+
+    }
+
+    .navbar {
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+
+    .navbar .navbar-nav {
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+
+    .navbar .navbar-nav .nav-item {
+        height: 56px;
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+</style>
+<body>
+<nav class="navbar navbar-expand-sm bg-light">
+    <ul class="navbar-nav">
+        <li class="nav-item ">
+            <a class="nav-link city" href="#">北京</a>
+        </li>
+        <li class="nav-item ">
+            <a class="nav-link nav-item_cus" href="#"><img class="tianqitu"></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link tianqi" href="#"></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link wendu" href="#"></a>
+        </li>
+
+    </ul>
+</nav>
+<div class="weatherContent" style="display: none">
+    <ul>
+        <li class="dayitem">
+        </li>
+        <li class="dayitem">
+        </li>
+        <li class="dayitem">
+        </li>
+    </ul>
+</div>
+<script>
+    $(function () {
+
+        //显示和隐藏
+        $(".navbar .navbar-nav .nav-item:eq(1), .weatherContent").hover(
+            function () {
+                $(".weatherContent").css("display", "inline")
+            }, function () {
+                $(".weatherContent").css("display", "none")
+            }
+        );
+
+        //请求和风服务器
+        function getNowWeather(url) {
+            $.ajax({
+                url: url,
+                method: "get",
+                success: function (res) {
+                    var status = res.code;
+                    if (status === "200") {
+                        // console.log(res);
+                        var tianqitupian = res.now.icon;
+                        var tianqi = res.now.text;
+                        var wendu = res.now.temp;
+
+                        $(".tianqitu").attr("src", `./images/${tianqitupian}.png`);
+                        $(".tianqi").html(tianqi);
+                        $(".wendu").html(wendu);
+                    }
+                },
+                error: function (err) {
+                    console.log(err)
+
+
+                }
+
+            })
+        }
+
+        //请求未来三天的天气
+        function getThirWeather(url) {
+            $.ajax({
+                url: url,
+                method: "get",
+                success: function (res) {
+                    console.log(res);
+                    $(".dayitem").html("");
+                    $(".dayitem").each(function (i) {
+                        let dayItem = res.daily[i];
+                        let datatime = dayItem.fxDate;
+                        let tupian = dayItem.iconDay;
+                        let tianqi = dayItem.textDay;
+                        let tempMax = dayItem.tempMax;
+                        let tempMin = dayItem.tempMin;
+                        $(this).append(`<a href="#">${datatime}</a><br>
+            <a class="" href="#"><img src="images/${tupian}.png"></a><br>
+            <a href="#">${tianqi}</a><br>
+            <a href="#">${tempMin}℃~${tempMax}℃</a><br>`)
+
+                    })
+
+                },
+                error: function (error) {
+                    console.log(error)
+                }
+            })
+        }
+
+
+        let url1 = "https://devapi.qweather.com/v7/weather/now?location=101010100&key=a6b1830ab5204540852ee9923b29068a";
+        let url2 = "https://devapi.qweather.com/v7/weather/3d?location=101010100&key=a6b1830ab5204540852ee9923b29068a";
+        getNowWeather(url1);
+        getThirWeather(url2);
+        setInterval(function () {
+            getNowWeather(url1);
+            getThirWeather(url2);
+        }, 1000*60*60)
+
+        moment.locale('zh-cn', {
+                months: '一月_二月_三月_四月_五月_六月_七月_八月_九月_十月_十一月_十二月'.split('_'),
+                monthsShort: '1月_2月_3月_4月_5月_6月_7月_8月_9月_10月_11月_12月'.split('_'),
+                weekdays: '星期日_星期一_星期二_星期三_星期四_星期五_星期六'.split('_'),
+                weekdaysShort: '周日_周一_周二_周三_周四_周五_周六'.split('_'),
+                weekdaysMin: '日_一_二_三_四_五_六'.split('_'),
+                longDateFormat: {
+                    LT: 'HH:mm',
+                    LTS: 'HH:mm:ss',
+                    L: 'YYYY-MM-DD',
+                    LL: 'YYYY年MM月DD日',
+                    LLL: 'YYYY年MM月DD日Ah点mm分',
+                    LLLL: 'YYYY年MM月DD日ddddAh点mm分',
+                    l: 'YYYY-M-D',
+                    ll: 'YYYY年M月D日',
+                    lll: 'YYYY年M月D日 HH:mm',
+                    llll: 'YYYY年M月D日dddd HH:mm'
+                },
+                meridiemParse: /凌晨|早上|上午|中午|下午|晚上/,
+                meridiemHour: function (hour, meridiem) {
+                    if (hour === 12) {
+                        hour = 0;
+                    }
+                    if (meridiem === '凌晨' || meridiem === '早上' ||
+                        meridiem === '上午') {
+                        return hour;
+                    } else if (meridiem === '下午' || meridiem === '晚上') {
+                        return hour + 12;
+                    } else {
+                        // '中午'
+                        return hour >= 11 ? hour : hour + 12;
+                    }
+                },
+                meridiem: function (hour, minute, isLower) {
+                    const hm = hour * 100 + minute;
+                    if (hm < 600) {
+                        return '凌晨';
+                    } else if (hm < 900) {
+                        return '早上';
+                    } else if (hm < 1130) {
+                        return '上午';
+                    } else if (hm < 1230) {
+                        return '中午';
+                    } else if (hm < 1800) {
+                        return '下午';
+                    } else {
+                        return '晚上';
+                    }
+                },
+                calendar: {
+                    sameDay: '[今天]LT',
+                    nextDay: '[明天]LT',
+                    nextWeek: '[下]ddddLT',
+                    lastDay: '[昨天]LT',
+                    lastWeek: '[上]ddddLT',
+                    sameElse: 'L'
+                },
+                dayOfMonthOrdinalParse: /\d{1,2}(日|月|周)/,
+                ordinal: function (number, period) {
+                    switch (period) {
+                        case 'd':
+                        case 'D':
+                        case 'DDD':
+                            return number + '日';
+                        case 'M':
+                            return number + '月';
+                        case 'w':
+                        case 'W':
+                            return number + '周';
+                        default:
+                            return number;
+                    }
+                },
+                relativeTime: {
+                    future: '%s内',
+                    past: '%s前',
+                    s: '几秒',
+                    ss: '%d秒',
+                    m: '1分钟',
+                    mm: '%d分钟',
+                    h: '1小时',
+                    hh: '%d小时',
+                    d: '1天',
+                    dd: '%d天',
+                    M: '1个月',
+                    MM: '%d个月',
+                    y: '1年',
+                    yy: '%d年'
+                },
+                week: { // GB/T7408 -1994《 数据元和交换格式· 信息交换· 日期和时间表示法》 与ISO 8601: 1988 等效
+                    dow: 1, // Monday is the first day of the week.
+                    doy: 4 // The week that contains Jan 4th is the first week of the year.
+                }
+            })
+
+    })
+
+</script>
+</body>
+</html>

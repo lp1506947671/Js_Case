@@ -32,7 +32,7 @@ java  和 JavaScript 没有任何关系
 **2.外链式JavaScript**
 
 ```js
-<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src="js/todoList.js"></script>
 ```
 
 **3.行内式JavaScript(一般情况下不用)**
