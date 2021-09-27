@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>富文本编辑器</title>
+    <link rel="stylesheet" href="./bootstrap-3.4.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./kindeditor-4.1.11-zh-CN/kindeditor/themes/default/default.css"/>
+    <link rel="stylesheet" href="./kindeditor-4.1.11-zh-CN/kindeditor/themes/example/example.css"/>
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js" type="text/javascript"></script>
+    <link rel="script" href="./bootstrap-3.4.1-dist/js/bootstrap.min.js">
+    <script charset="utf-8" src="./kindeditor-4.1.11-zh-CN/kindeditor/kindeditor-all.js"></script>
+    <script charset="utf-8" src="./kindeditor-4.1.11-zh-CN/kindeditor/lang/zh-CN.js"></script>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-offset-2 col-md-6 table-bordered">
+            <form action="" method="post">
+                <div class="add_article">
+                    <div class="alert-success text-center">添加文章</div>
+                    <div class="add_article_region">
+                        <div class="title form-group">
+                            <label for="title">标题</label>
+                            <div><input type="text" name="title" id="title" class="form-control"></div>
+                        </div>
+
+                        <div class="content form-group">
+                            <label for="article_content">内容(Kindeditor编辑器，不支持拖放/粘贴上传图片) </label>
+                            <div><textarea name="content" id="article_content" cols="30" rows="10"
+                                           class="form-control"></textarea></div>
+                        </div>
+                        <input type="submit" class="btn btn-default">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    KindEditor.ready(function (K) {
+        var options = {
+            minWidth: "200px",
+            height: "500px",
+            resizeType: 0,
+            // 指定上传文件的服务器端程序
+            uploadJson: "/upload/",
+            //上传图片、Flash、视音频、文件时，支持添加别的参数一并传到服务器。
+            extraFileUploadParams: {
+                csrfmiddlewaretoken: $("[name='csrfmiddlewaretoken']").val()
+            },
+            // 指定上传文件form名称。
+            filePostName: "upload_img",
+            themeType: 'example'
+
+        };
+        window.editor = K.create('#article_content', options);
+    });
+</script>
+</body>
+</html>
